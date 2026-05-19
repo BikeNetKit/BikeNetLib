@@ -1,2 +1,2 @@
-# lib
-Provides utility functions that might be shared by different repos
+# Bike Net Kit / lib
+Utility functions shared by different toolkits
