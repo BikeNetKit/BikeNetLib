@@ -1,0 +1,33 @@
+name: bnlenvdev
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - geopandas>=0.14
+  - jupyter
+  - jupyterlab
+  - ipywidgets
+  - ipykernel
+  - matplotlib
+  - osmnx>=1.9.4
+  - tqdm
+  - geojson
+  - pip
+  - momepy
+  - pytest
+  - contextily
+  - sphinx
+  - numpydoc
+  - myst-nb
+  - sphinx-book-theme
+  - nbsphinx
+  - myst-parser
+  - ipython
+  - pip:
+      # not available via conda-forge:
+      - opencv-python
+      - pre-commit
+      - sphinxcontrib-bibtex
+      - sphinx-copybutton
+      - sphinx-gallery
+      - python-slugify
