@@ -18,7 +18,9 @@ BikeNetLib mainly builds on [OSMnx](https://github.com/gboeing/osmnx) and [GeoPa
 
 ## Installation
 
-TBD
+```
+pip install bikenetlib
+```
 
 ## Credits
 
