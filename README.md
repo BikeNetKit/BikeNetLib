@@ -11,3 +11,15 @@ There are three building blocks:
 - `bikenetlib.viz` – Visualization
 
 BikeNetLib mainly builds on [OSMnx](https://github.com/gboeing/osmnx) and [GeoPandas](https://github.com/geopandas/geopandas).
+
+## Installation
+
+TBD
+
+## Credits
+
+<!--Please cite as:
+>AUTHOR1, AUTHOR2, and AUTHOR3, PROJECTNAME, JOURNAL (YYYY), DOIURL
+-->
+
+Development of GrowBikeNet was supported by the Danish Innovation Fund (Innovationsfonden).
