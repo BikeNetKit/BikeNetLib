@@ -236,58 +236,6 @@ def update_seed_points_with_existing_bike_network(seed_points_snapped, nodes_exn
     seed_points_snapped.set_index("osmid", drop=False, inplace=True)
     return seed_points_snapped
 
-def get_grid_seed_points(edges, seed_point_spacing, principal_bearing):
-    """Get grid seed points for street network, rotated by principal bearing
-
-    Adapted from: https://github.com/gboeing/osmnx-examples/blob/v0.11/notebooks/17-street-network-orientations.ipynb
-
-    Parameters
-    ----------
-    edges: geopandas.geodataframe.GeoDataFrame
-        The street network, in a projected coordinate reference system
-    seed_point_spacing: int
-        Distance between seed points, in meters
-    principal_bearing: float
-        Principal bearing (most common bearing of streets)
-
-    Returns
-    -------
-    seed_points: geopandas.geodataframe.GeoDataFrame
-        Seed points, rotated by principal bearing, to be snapped, in the same projected coordinate reference system as edges
-    """
-
-    # Rotate edges counter to the principal bearing
-    edges_temp = edges.copy()
-    edges_temp.geometry = edges_temp.geometry.rotate(principal_bearing, origin=(0, 0))
-
-    # Create grid
-    # get convex hull around edge area
-    hull = edges_temp.union_all().convex_hull
-    # get bounds of hull
-    xmin, ymin, xmax, ymax = hull.bounds
-
-    # https://stackoverflow.com/questions/66010964/fastest-way-to-produce-a-grid-of-points-that-fall-within-a-polygon-or-shape
-    # Populate hull bbox with evenly spaced seeding points
-    points = []
-    for x in np.arange(xmin, xmax, seed_point_spacing):
-        for y in np.arange(ymin, ymax, seed_point_spacing):
-            points.append(Point((round(x, 4), round(y, 4))))
-
-    # Keep only those seed points that are within the hull polygon
-    prep_polygon = prep(hull)
-    valid_points = []
-    valid_points.extend(filter(prep_polygon.contains, points))
-
-    # store seed points in gdf
-    seed_points = gpd.GeoDataFrame({"geometry": valid_points}, crs=edges.crs)
-
-    # Rotate points back using the principal bearing
-    seed_points.geometry = seed_points.geometry.rotate(
-        -1 * principal_bearing, origin=(0, 0)
-    )
-
-    return seed_points
-
 
 def get_principal_bearing(G):
     """Determine the most common (principal) bearing, for the best grid orientation.
