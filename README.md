@@ -1,5 +1,7 @@
 # Bike Net Kit / Bike Net Lib
 
+> [!WARNING]  
+> This repository is under heavy development and not yet functional. Do not use.
 
 The Python package `bikenetlib` offers utilities for working with bicycle networks, also forming the core of many upstream packages
 in the [BikeNetKit family](https://github.com/BikeNetKit).
