@@ -22,4 +22,4 @@ TBD
 >AUTHOR1, AUTHOR2, and AUTHOR3, PROJECTNAME, JOURNAL (YYYY), DOIURL
 -->
 
-Development of GrowBikeNet was supported by the Danish Innovation Fund (Innovationsfonden).
+Development of BikeNetKit/BikeNetLib was supported by the Danish Innovation Fund (Innovationsfonden).
