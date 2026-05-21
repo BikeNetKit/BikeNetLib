@@ -10,10 +10,10 @@ authors = [
   { name = "Anastassia Vybornova" },
   { name = "Michael Szell" },
 ]
-maintainers = [{ name = "Manuel Knepper", email = "manuel.knepper@gmx.net" }]
+maintainers = [{ name = "Michael Szell", email = "michael@szell.net" }]
 license = "AGPL-3.0-or-later"
 readme = "README.md"
-description = "Python package with utilities for working with bicycle networks, core of BikeNetKit"
+description = "BikeNetKit Python core utility package"
 keywords = ["Bicycle network planning", "Networks", "OpenStreetMap", "Urban Planning", "Urban Mobility"]
 classifiers = [
     "Intended Audience :: Developers",
