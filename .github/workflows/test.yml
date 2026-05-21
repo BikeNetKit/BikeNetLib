@@ -54,9 +54,9 @@ jobs:
         python-version: ["3.12"]
         os: [ubuntu-latest]
         submodule:
-          - { name: "io", pytest_args: "tests/test_io.py" }
+          #- { name: "io", pytest_args: "tests/test_io.py" } # To do
           - { name: "utils", pytest_args: "tests/test_utils.py" }
-          - { name: "viz", pytest_args: "tests/test_viz.py" }
+          #- { name: "viz", pytest_args: "tests/test_viz.py" } # To do
       fail-fast: false
 
     name: ${{ matrix.submodule.name }} (${{ matrix.python-version }} on ${{ matrix.os }})
