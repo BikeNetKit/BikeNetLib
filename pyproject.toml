@@ -51,6 +51,9 @@ doc = ["sphinx", "momepy"]
 [tool.ruff.lint.extend-per-file-ignores]
 "__init__.py" = ["F401"]  # "Imported but unused: happens with packages
 
+[tool.setuptools.dynamic]
+version = {attr = "bikenetlib.__version__"}
+
 [tool.setuptools.packages.find]
 exclude = [
     "examples*",
