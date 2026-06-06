@@ -5,7 +5,7 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Test](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml)
 
-The Python package `bikenetlib` is BikeNetKit's Python core utility package. It offers utilities for working with bicycle networks and forms the core of many upstream packages
+The Python package `bikenetlib` will be BikeNetKit's Python core utility package. It is going to offer utilities for working with bicycle networks and forms the core of many upstream packages
 in the [BikeNetKit family](https://github.com/BikeNetKit), like [GrowBikeNet](https://github.com/BikeNetKit/GrowBikeNet), [FixBikeNet](https://github.com/BikeNetKit/FixBikeNet), or [LinkBikeNet](https://github.com/BikeNetKit/LinkBikeNet).
 
 There are three building blocks:
