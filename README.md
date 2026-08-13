@@ -1,14 +1,12 @@
-# Bike Net Kit / Bike Net Lib
+# <a href="https://docs.bikenetkit.org/BikeNetLib/"><img src="docs/source/_static/logo_bikenetlib.svg" alt="BikeNetLib" width="255.93" height="59"></a>
 
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![PyPI Version](https://img.shields.io/pypi/v/bikenetlib?color=10d249)](https://pypi.org/project/BikeNetLib/)
 [![Test](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml)
 
-The Python package `bikenetlib` will be BikeNetKit's Python core utility package. It is going to offer utilities for working with bicycle networks and form the core of many upstream packages
+The Python package `bikenetlib` is in the planning phase and  not yet being developed. It will be BikeNetKit's Python core utility package. It will offer utilities for working with bicycle networks and form the core of many upstream packages
 in the [BikeNetKit family](https://github.com/BikeNetKit), like [GrowBikeNet](https://github.com/BikeNetKit/GrowBikeNet), [FixBikeNet](https://github.com/BikeNetKit/FixBikeNet), or [LinkBikeNet](https://github.com/BikeNetKit/LinkBikeNet).
 
-There are three building blocks:
+There will be three building blocks:
 
 - `bikenetlib.io` – Input and output
 - `bikenetlib.utils` – Utilities
@@ -22,10 +20,13 @@ BikeNetLib mainly builds on [OSMnx](https://github.com/gboeing/osmnx) and [GeoPa
 pip install bikenetlib
 ```
 
-## Credits
+## Usage
+In development.
 
-<!--Please cite as:
->AUTHOR1, AUTHOR2, and AUTHOR3, PROJECTNAME, JOURNAL (YYYY), DOIURL
--->
+## Docs
+In development.
 
-Development of BikeNetKit/BikeNetLib was supported by the Danish Innovation Fund (Innovationsfonden).
+## Supported by
+Development of BikeNetKit/BikeNetLib is supported by the [Innovation Fund Denmark](https://innovationsfonden.dk/en) and the EU HORIZON project [JUST STREETS](https://www.just-streets.eu).
+
+[![Innovation Fund Denmark](https://raw.githubusercontent.com/BikeNetKit/.github/refs/heads/main/profile/_static/logo_innovationfund.png)](https://innovationsfonden.dk/en) &emsp;&emsp; [![European Union](https://raw.githubusercontent.com/BikeNetKit/.github/refs/heads/main/profile/_static/logo_eu.png)](https://commission.europa.eu/index_en) &ensp; [![JUST STREETS](https://raw.githubusercontent.com/BikeNetKit/.github/refs/heads/main/profile/_static/logo_juststreets.png)](https://www.just-streets.eu/) 
