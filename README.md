@@ -1,4 +1,4 @@
-# <a href="https://docs.bikenetkit.org/BikeNetLib/"><img src="docs/source/_static/logo_bikenetlib.svg" alt="BikeNetLib" width="255.93" height="59"></a>
+# <a href="https://docs.bikenetkit.org/BikeNetLib/"><img src="https://github.com/BikeNetKit/BikeNetLib/raw/main/docs/source/_static/logo_bikenetlib.svg" alt="BikeNetLib" width="255.93" height="59"></a>
 
 [![PyPI Version](https://img.shields.io/pypi/v/bikenetlib?color=10d249)](https://pypi.org/project/BikeNetLib/)
 [![Test](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml)
