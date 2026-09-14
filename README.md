@@ -3,9 +3,12 @@
 [![PyPI Version](https://img.shields.io/pypi/v/bikenetlib?color=10d249)](https://pypi.org/project/BikeNetLib/)
 [![Test](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml)
 
-The Python package `bikenetlib` is in the planning phase and  not yet being developed. It will be BikeNetKit's Python core utility package. It will offer utilities for working with bicycle networks and form the core of many upstream packages
+The Python package `bikenetlib` is BikeNetKit's Python core utility package. It offers utilities for working with bicycle networks and form the core of many upstream packages
 in the [BikeNetKit family](https://github.com/BikeNetKit), like [GrowBikeNet](https://github.com/BikeNetKit/GrowBikeNet), [FixBikeNet](https://github.com/BikeNetKit/FixBikeNet), or [LinkBikeNet](https://github.com/BikeNetKit/LinkBikeNet).
 
+> [!CAUTION]  
+> BikeNetLib is currently in Alpha: It is under heavy development and *not* stable enough to use yet, likely to contain breaking bugs. Breaking changes may be added anytime.
+ 
 There will be three building blocks:
 
 - `bikenetlib.io` – Input and output
