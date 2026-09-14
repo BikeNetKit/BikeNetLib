@@ -2,6 +2,7 @@
 
 [![PyPI Version](https://img.shields.io/pypi/v/bikenetlib?color=10d249)](https://pypi.org/project/BikeNetLib/)
 [![Test](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml)
+[![Mastodon Follow](https://img.shields.io/mastodon/follow/116693348622375119?domain=https%3A%2F%2Ffosstodon.org)](https://fosstodon.org/@BikeNetKit)
 
 The Python package `bikenetlib` is BikeNetKit's Python core utility package. It offers utilities for working with bicycle networks and form the core of many upstream packages
 in the [BikeNetKit family](https://github.com/BikeNetKit), like [GrowBikeNet](https://github.com/BikeNetKit/GrowBikeNet), [FixBikeNet](https://github.com/BikeNetKit/FixBikeNet), or [LinkBikeNet](https://github.com/BikeNetKit/LinkBikeNet).
