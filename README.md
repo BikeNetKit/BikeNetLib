@@ -10,11 +10,12 @@ in the [BikeNetKit family](https://github.com/BikeNetKit), like [GrowBikeNet](ht
 > [!CAUTION]  
 > BikeNetLib is currently in Alpha: It is under heavy development and *not* stable enough to use yet, likely to contain breaking bugs. Breaking changes may be added anytime.
  
-There will be three building blocks:
+There will be several building blocks:
 
 - `bikenetlib.io` – Input and output
 - `bikenetlib.utils` – Utilities
 - `bikenetlib.viz` – Visualization
+- `bikenetlib.osm` – OpenStreetMap handling
 
 BikeNetLib mainly builds on [OSMnx](https://github.com/gboeing/osmnx) and [GeoPandas](https://github.com/geopandas/geopandas).
 
