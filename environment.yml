@@ -5,5 +5,4 @@ dependencies:
   - python>=3.12
   - matplotlib
   - osmnx>=2
-  - scipy
   - geojson
