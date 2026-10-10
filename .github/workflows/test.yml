@@ -14,6 +14,7 @@ on:
   pull_request:
     branches:
       - "**"
+  workflow_dispatch:
   schedule: # Every Monday at 04:00 UTC
     - cron: "0 4 * * 1"
 
