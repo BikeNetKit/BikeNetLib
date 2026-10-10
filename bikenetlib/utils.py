@@ -27,9 +27,9 @@ def assign_pbi_to_edges(g):
         for tag in osm.PBI_DICT:
             if g.edges[edge].get(tag) in osm.PBI_DICT[tag]:
                 assigned_pbi = 1
-        if not assigned_pbi: # Check if the edge fulfils a subcriterion
+        if not assigned_pbi: # Check if the edge fulfills a subcriterion
             for tag in osm.PBI_DICT_SUB:
-                subtag = osm.PBI_DICT_SUB[tag][1].keys()[0]
+                subtag = list(osm.PBI_DICT_SUB[tag][1].keys())[0]
                 if g.edges[edge].get(tag) in osm.PBI_DICT_SUB[tag][0] and g.edges[edge].get(subtag) in osm.PBI_DICT_SUB[tag][1][subtag] and g.edges[edge].get("access") != 'private':
                     assigned_pbi = 1
         g.edges[edge]["pbi"] = assigned_pbi
@@ -37,7 +37,7 @@ def assign_pbi_to_edges(g):
 
     
 def nodelist_to_edgetuples(edge_gdf, nodelist):
-    """Map a list of ndoes (from `nx.shortest_paths()`) to a list of edge 
+    """Map a list of nodes (from `nx.shortest_paths()`) to a list of edge 
     tuples that can be used for indexing an edge geodataframe.
 
     Useful to apply as a lambda function to turn path nodes into path edges.
@@ -180,7 +180,7 @@ def route_nodepairs(nodepairs, edges, g_undir):
 
     Parameters
     ----------
-    df : pandas.DataFrame
+    nodepairs : pandas.DataFrame
         Dataframe with node pair integer IDs, columns `source` and `target`.
     edges : geopandas.geodataframe.GeoDataFrame
         The street network, in a projected CRS.
@@ -189,11 +189,11 @@ def route_nodepairs(nodepairs, edges, g_undir):
 
     Returns
     -------
-    df : pandas.DataFrame
-        Dataframe with added path nodes and path edges.
+    nodepairs : pandas.DataFrame
+        Dataframe of node pairs with added path nodes and path edges.
     """
     paths = []
-    for _, row in df.iterrows():
+    for _, row in nodepairs.iterrows():
         paths.append(
             nx.shortest_path(
                 G=g_undir,
@@ -202,7 +202,7 @@ def route_nodepairs(nodepairs, edges, g_undir):
                 weight="weight",
             )
         )
-    df["path_nodes"] = paths
-    df["path_edges"] = df.path_nodes.apply(lambda x: nodelist_to_edgetuples(edges, x))
-    return df
+    nodepairs["path_nodes"] = paths
+    nodepairs["path_edges"] = nodepairs.path_nodes.apply(lambda x: nodelist_to_edgetuples(edges, x))
+    return nodepairs
 

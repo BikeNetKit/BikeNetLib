@@ -18,10 +18,6 @@ PBI_DICT_SUB : dict
     Dictionary for protected bicycle infrastructure (pbi), with one 
     sub-criterion. For example, highway~path AND bicycle~designated. Always 
     adds a second criterion access!~private.
-ROUTING_PENALTY : dict, default {0: 1.5, 1: 1}
-    Factor to multiply length of non-pbi/pbi for routing, to avoid routing
-    through parallel streets when slightly longer pbi is available. By 
-    default, non-pbi counts as 50% longer than pbi.
 """
 
 # Populate ox.settings.useful_tags_way to make application of custom filter possible
@@ -73,6 +69,4 @@ PBI_DICT_SUB = {
         {'bicycle': ['designated','yes','permissive']},
     ]
 }
-
-ROUTING_PENALTY = {0: 1.5, 1: 1}
 
