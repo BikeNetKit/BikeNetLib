@@ -4,11 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bikenetlib"
-version = "0.5.0"
+version = "0.6.0"
 authors = [
     { name = "Michael Szell", email = "michael@szell.net" },
     { name = "Manuel Knepper" },
-    { name = "Anastassia Vybornova" },
 ]
 maintainers = [
     { name = "Michael Szell", email = "michael@szell.net" },
