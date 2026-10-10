@@ -7,8 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "BikeNetLib"
-copyright = "2026, BikeNetLib developers"
-author = "Szell, Knepper, Vybornova"
+copyright = "2026, BikeNetLib contributors"
+author = "BikeNetLib contributors"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -19,9 +19,10 @@ import sys  # noqa
 sys.path.insert(0, os.path.abspath(".."))
 import bikenetlib  # noqa
 
-# version = bikenetlib.__version__
-version = "0.5.0"
-release = version
+# dynamically load version
+with Path("../../pyproject.toml").open("rb") as f:
+    pyproject = toml_load(f)
+version = release = pyproject["project"]["version"]
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -30,17 +31,15 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.linkcode",
-    "sphinxcontrib.bibtex",
     "sphinx.ext.mathjax",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
     "numpydoc",
-    "nbsphinx",
+    "myst_nb",
     "matplotlib.sphinxext.plot_directive",
     "IPython.sphinxext.ipython_console_highlighting",
-    "myst_parser",
     "sphinx_copybutton",
-    "sphinx_gallery.load_style",
+    "sphinxext.opengraph",
 ]
 
 templates_path = ["_templates"]
