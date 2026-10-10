@@ -21,7 +21,7 @@ jobs:
   caching:
     strategy:
       matrix:
-        python-version: ["3.12", "3.15"]
+        python-version: ["3.11", "3.15"]
         os: [ubuntu-latest]
       fail-fast: false
     env:
@@ -51,7 +51,7 @@ jobs:
     needs: caching
     strategy:
       matrix:
-        python-version: ["3.12", "3.15"]
+        python-version: ["3.11", "3.15"]
         os: [ubuntu-latest]
         submodule:
           # - { name: "io", pytest_args: "tests/test_io.py" } # To do
