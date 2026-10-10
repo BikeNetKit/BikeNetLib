@@ -2,22 +2,7 @@ name: bnlenv
 channels:
   - conda-forge
 dependencies:
-  - python=3.12
-  - geopandas>=0.14
-  - jupyter
-  - jupyterlab
-  - ipywidgets
-  - ipykernel
+  - python>=3.12
   - matplotlib
-  - osmnx>=1.9.4
-  - tqdm
+  - osmnx>=2
   - geojson
-  - pip
-  - momepy
-  - pytest
-  - contextily
-  - pip:
-      # not available via conda-forge:
-      - opencv-python
-      - pre-commit
-      - python-slugify
