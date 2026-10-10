@@ -7,6 +7,35 @@ from scipy.spatial import Delaunay
 from shapely.prepared import prep
 from shapely.geometry import Point, MultiLineString
 from tqdm import tqdm
+from . import osm
+
+
+def assign_pbi_to_edges(g):
+    """Assign a boolean pbi attribute to all edges in a graph depending if they 
+    are considered protected bike infrastructure (pbi).
+
+    Parameters
+    ----------
+    g : networkx.MultiDiGraph
+        Simplified graph representing the street network.
+
+    Returns
+    -------
+    g : networkx.MultiDiGraph
+        Simplified graph representing the street network, with added binary edge attribute "pbi".
+    """
+    for edge in g.edges(keys=True):
+        assigned_pbi = 0
+        for tag in osm.PBI_DICT:
+            if g.edges[edge].get(tag) in osm.PBI_DICT[tag]:
+                assigned_pbi = 1
+        if not assigned_pbi: # Check if the edge fulfils a subcriterion
+            for tag in osm.PBI_DICT_SUB:
+                subtag = osm.PBI_DICT_SUB[tag][1].keys()[0]
+                if g.edges[edge].get(tag) in osm.PBI_DICT_SUB[tag][0] and g.edges[edge].get(subtag) in osm.PBI_DICT_SUB[tag][1][subtag] and g.edges[edge].get("access") != 'private':
+                    assigned_pbi = 1
+        g.edges[edge]["pbi"] = assigned_pbi
+    return g
 
 
 def intersects_properly(geom1, geom2):
