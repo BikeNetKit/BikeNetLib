@@ -30,12 +30,12 @@ Input/Output like downloads, imports, exports, but also format conversions and u
 OSM constants.
 
 ## Multi-use
-- import custom tags
-- `GROWABLE_NETWORK_CUSTOM_FILTER` -> `CAR_AND_PBI_NETWORK_CUSTOM_FILTER`
-- `GROWABLE_NETWORK_TYPE` -> `CAR_AND_PBI_NETWORK_TYPE`
-- `PBI_CUSTOM_FILTER`
-- `PBI_DICT`
-- `PBI_DICT_SUB`
+- X import custom tags
+- X `GROWABLE_NETWORK_CUSTOM_FILTER` -> `CARPBI_NETWORK_CUSTOM_FILTER`
+- X `GROWABLE_NETWORK_TYPE` -> `CARPBI_NETWORK_TYPE`
+- X `PBI_CUSTOM_FILTER`
+- X `PBI_DICT`
+- X `PBI_DICT_SUB`
 
 
 # SETTINGS
