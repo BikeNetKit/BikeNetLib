@@ -6,6 +6,7 @@ dependencies:
   - matplotlib=3.11.2 # The exact version is important for visualization tests
   - osmnx>=2
   - geojson
+  - tqdm
 
   # additional to the non-dev env
   - ipykernel

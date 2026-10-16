@@ -5,7 +5,7 @@ import pandas as pd
 import geopandas as gpd
 import networkx as nx
 import osmnx as ox
-from . import osm
+from . import constants, osm
 
 
 def assign_pbi_to_edges(g):
@@ -66,7 +66,7 @@ def nodelist_to_edgetuples(edge_gdf, nodelist):
     return edgelist_final
 
 
-def get_principal_bearing(G):
+def get_principal_bearing(G, bearing_bins = 72):
     """Determine the most common (principal) bearing, for the best grid orientation.
 
     Adapted from: https://github.com/gboeing/osmnx-examples/blob/v0.11/notebooks/17-street-network-orientations.ipynb
@@ -76,6 +76,9 @@ def get_principal_bearing(G):
     ----------
     G : networkx MultiGraph (undirected)
         The graph from which to determine the principal bearing. Its coordinate reference system must be geographical, not projected.
+    bearing_bins : int, default 72
+        Number of bins to determine bearing. e.g. 72 will create 5 degrees 
+        bins.
 
     Returns
     -------
@@ -84,7 +87,7 @@ def get_principal_bearing(G):
     """
 
     bearingbins = (
-        72  # number of bins to determine bearing. e.g. 72 will create 5 degrees bins
+        bearing_bins  # 
     )
 
     bearings = {}
@@ -175,7 +178,7 @@ def node_to_edge_attributes(values_nodes, edges):
     return values_edges
 
 
-def route_nodepairs(nodepairs, edges, g_undir):
+def route_nodepairs(nodepairs, edges, g_undir, weight="weight"):
     """Route pairs of nodes on the graph `g_undir` to a merged geometry of corresponding OSM nodes and edges.
 
     Parameters
@@ -185,7 +188,9 @@ def route_nodepairs(nodepairs, edges, g_undir):
     edges : geopandas.geodataframe.GeoDataFrame
         The street network, in a projected CRS.
     g_undir : networkx.graph undirected
-        Graph to use for routing. The weight variable is "weight".
+        Graph to use for routing. 
+    weight : string, default "weight"
+        The name of the weight variable.
 
     Returns
     -------
@@ -199,7 +204,7 @@ def route_nodepairs(nodepairs, edges, g_undir):
                 G=g_undir,
                 source=int(row.source),
                 target=int(row.target),
-                weight="weight",
+                weight=weight,
             )
         )
     nodepairs["path_nodes"] = paths
