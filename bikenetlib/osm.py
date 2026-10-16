@@ -1,5 +1,5 @@
-"""Global constants related to OpenStreetMap (OSM). These are meant for 
-advanced users only who have a good understanding of OSM tags.
+"""Global constants of `bikenetlib` related to OpenStreetMap (OSM). These are 
+meant for advanced users only who have a good understanding of OSM tags.
 
 CARPBI_NETWORK_CUSTOM_FILTER : list[str] or None
     Custom filter for all infrastructure elements that are the combined drive 

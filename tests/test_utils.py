@@ -1,12 +1,10 @@
 import pytest
 import osmnx as ox
-import pandas as pd
 import geopandas as gpd
 from pandas.testing import assert_frame_equal
 from bikenetlib.utils import ( # List them in the order appearing in utils.py
     get_principal_bearing,
 )
-from shapely.geometry import Point, LineString, MultiLineString
 
 
 # get_principal_bearing
