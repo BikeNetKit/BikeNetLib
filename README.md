@@ -17,14 +17,15 @@ There will be several building blocks:
 - `bikenetlib.io` – Input and output
 - `bikenetlib.utils` – Utilities
 - `bikenetlib.viz` – Visualization
-- `bikenetlib.osm` – OpenStreetMap handling
+- `bikenetlib.osm` – OpenStreetMap constants
 
 BikeNetLib mainly builds on [OSMnx](https://github.com/gboeing/osmnx) and [GeoPandas](https://github.com/geopandas/geopandas).
 
 ## Installation
+The recommended way to install BikeNetLib is using [`conda`](https://docs.conda.io/projects/conda/en/latest/index.html):
 
 ```
-pip install bikenetlib
+conda install bikenetlib
 ```
 
 ## Usage
