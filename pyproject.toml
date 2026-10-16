@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bikenetlib"
-version = "0.6.0"
+version = "0.7.0"
 authors = [
     { name = "Michael Szell", email = "michael@szell.net" },
     { name = "Manuel Knepper" },
@@ -37,6 +37,7 @@ dependencies = [
     "matplotlib",
     "osmnx>=2",
     "geojson",
+    "tqdm",
 ]
 
 [project.urls]
