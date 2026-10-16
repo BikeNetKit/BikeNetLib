@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.7.0 (2026-10-16)
+
+- 📝 Added consolidate.md for an overview of potential functions
+- ✨ Added first consolidated functions to osm module
+- ✨ Added first consolidated functions to io module
+- ✨ Added constants module
+- 👷 Added test_io
+- ➕ Added tqdm dependency
+
 ## Version 0.6.0 (2026-10-10)
 
 - ✨ Added and polished shared utils functions
