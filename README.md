@@ -6,18 +6,18 @@
 [![Code coverage](https://codecov.io/gh/BikeNetKit/BikeNetLib/graph/badge.svg)](https://codecov.io/gh/BikeNetKit/BikeNetLib)
 [![Mastodon Follow](https://img.shields.io/mastodon/follow/116693348622375119?domain=https%3A%2F%2Ffosstodon.org)](https://fosstodon.org/@BikeNetKit)
 
-The Python package `bikenetlib` is BikeNetKit's Python core utility package. It offers utilities for working with bicycle networks and form the core of many upstream packages
+The Python package `bikenetlib` is BikeNetKit's Python core utility package. It offers general utilities for working with bicycle networks, which also forms the core of many upstream packages
 in the [BikeNetKit family](https://github.com/BikeNetKit), like [GrowBikeNet](https://github.com/BikeNetKit/GrowBikeNet), [FixBikeNet](https://github.com/BikeNetKit/FixBikeNet), or [LinkBikeNet](https://github.com/BikeNetKit/LinkBikeNet).
 
 > [!CAUTION]  
 > BikeNetLib is currently in Alpha: It is under heavy development and *not* stable enough to use yet, likely to contain breaking bugs. Breaking changes may be added anytime.
  
-There will be several building blocks:
+BikeNetLib is imported as `bnl`. There are several building blocks:
 
-- `bikenetlib.io` – Input and output
-- `bikenetlib.utils` – Utilities
-- `bikenetlib.viz` – Visualization
-- `bikenetlib.osm` – OpenStreetMap constants
+- `bnl.io` – Input and output
+- `bnl.utils` – Utilities
+- `bnl.viz` – Visualization
+- `bnl.osm` – OpenStreetMap constants
 
 BikeNetLib mainly builds on [OSMnx](https://github.com/gboeing/osmnx) and [GeoPandas](https://github.com/geopandas/geopandas).
 
