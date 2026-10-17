@@ -1,6 +1,11 @@
 """Import/Output functions of `bikenetlib`, including format conversions and 
 user feedback tools.
+
+silent : bool, default False
+    If set to True, suppresses all user feedback. Useful for batch exports.
 """
+
+silent = False
 
 import re
 import tqdm
@@ -47,5 +52,5 @@ def initialize_progress_bar(desc_string, total=1, unit="step"):
         total=total,
         unit=unit,
         bar_format='{l_bar}{bar:'+str(constants._PROGRESS_BAR_LENGTH-7)+'}{r_bar}',
-        disable=settings.silent,
+        disable=silent,
     )

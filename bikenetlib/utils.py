@@ -66,7 +66,7 @@ def nodelist_to_edgetuples(edge_gdf, nodelist):
     return edgelist_final
 
 
-def get_principal_bearing(G, bearing_bins = 72):
+def get_principal_bearing(G, bearingbins = 72):
     """Determine the most common (principal) bearing, for the best grid orientation.
 
     Adapted from: https://github.com/gboeing/osmnx-examples/blob/v0.11/notebooks/17-street-network-orientations.ipynb
@@ -85,10 +85,6 @@ def get_principal_bearing(G, bearing_bins = 72):
     principal_bearing: float
         The principal bearing, precise to 5 degrees.
     """
-
-    bearingbins = (
-        bearing_bins  # 
-    )
 
     bearings = {}
     # weight bearings by length (meters)
