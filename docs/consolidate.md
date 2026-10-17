@@ -56,6 +56,7 @@ Should probably be tool-specific, if relevant overwrite bnl settings.
 - X gbn: `get_principal_bearing()`, `_reverse_bearing()`, `_count_and_merge()`
 - X gbn: `node_to_edge_attributes()`
 - X gbn: `route_nodepairs()`: make weight a parameter.
+- gbn: `orientation_order()`
 - gbn: `add_trip_data_to_net()`: add in future to fbn?
 - gbn`_order_df()`: explore how to turn general-purpose
 - gbn: `filter_network_by_component_length()`, `prepare_nodes_edges()`: explore how to turn general-purpose
