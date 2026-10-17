@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.7.1 (2026-10-17)
+
+- 🐛 Fixed io.silent
+
 ## Version 0.7.0 (2026-10-16)
 
 - 📝 Added consolidate.md for an overview of potential functions
