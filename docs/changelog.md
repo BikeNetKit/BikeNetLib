@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.7.2 (2026-10-18)
+
+- 🐛 Fixed tqdm import
+
 ## Version 0.7.1 (2026-10-17)
 
 - 🐛 Fixed io.silent
