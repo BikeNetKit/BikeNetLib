@@ -8,7 +8,7 @@ silent : bool, default False
 silent = False
 
 import re
-import tqdm
+from tqdm import tqdm
 from . import constants, osm
 
 def slugify(s): 
