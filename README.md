@@ -15,9 +15,9 @@ in the [BikeNetKit family](https://github.com/BikeNetKit), like [GrowBikeNet](ht
 BikeNetLib is imported as `bnl`. There are several building blocks:
 
 - `bnl.io` – Input and output
+- `bnl.osm` – OpenStreetMap constants
 - `bnl.utils` – Utilities
 - `bnl.viz` – Visualization
-- `bnl.osm` – OpenStreetMap constants
 
 BikeNetLib mainly builds on [OSMnx](https://github.com/gboeing/osmnx) and [GeoPandas](https://github.com/geopandas/geopandas).
 
