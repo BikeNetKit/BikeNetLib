@@ -2,6 +2,7 @@
 
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/bikenetlib?color=10d249)](https://anaconda.org/conda-forge/bikenetlib)
 [![PyPI Version](https://img.shields.io/pypi/v/bikenetlib?color=10d249)](https://pypi.org/project/BikeNetLib/)
+[![Docs](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/docs.yml/badge.svg)](https://docs.bikenetkit.org/BikeNetLib/)
 [![Test](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml)
 [![Code coverage](https://codecov.io/gh/BikeNetKit/BikeNetLib/graph/badge.svg)](https://codecov.io/gh/BikeNetKit/BikeNetLib)
 [![Mastodon Follow](https://img.shields.io/mastodon/follow/116693348622375119?domain=https%3A%2F%2Ffosstodon.org)](https://fosstodon.org/@BikeNetKit)
