@@ -28,12 +28,18 @@ The recommended way to install BikeNetLib is using [`conda`](https://docs.conda.
 ```
 conda install bikenetlib
 ```
+### Advanced and development installations
+For more installation options, see our [Installation docs](https://docs.bikenetkit.org/BikeNetLib/installation/).
 
 ## Usage
-In development.
+We provide a minimum working example:
 
-## Docs
-In development.
+- Jupyter notebook ([examples/mwe.ipynb](examples/mwe.ipynb))
+
+For a walkthrough with illustrative examples, see our [Usage docs](https://docs.bikenetkit.org/BikeNetLib/usage/).
+
+## Documentation
+Find more information in our docs: [https://docs.bikenetkit.org/BikeNetLib/](https://docs.bikenetkit.org/BikeNetLib/)
 
 ## Supported by
 Development of BikeNetKit/BikeNetLib is supported by the [Innovation Fund Denmark](https://innovationsfonden.dk/en) and the EU HORIZON project [JUST STREETS](https://www.just-streets.eu).
