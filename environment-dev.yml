@@ -20,6 +20,7 @@ dependencies:
   - pre-commit
   - jupyterlab
   - pixi-kernel
+  - bikenetlib # To import in docs notebooks
   - pip:
       # not available via conda-forge:
       - sphinx-copybutton

@@ -1,12 +1,15 @@
 # Changelog
 
+
 ## Version 0.7.2 (2026-10-18)
 
 - 🐛 Fixed tqdm import
 
+
 ## Version 0.7.1 (2026-10-17)
 
 - 🐛 Fixed io.silent
+
 
 ## Version 0.7.0 (2026-10-16)
 
@@ -17,6 +20,7 @@
 - 👷 Added test_io
 - ➕ Added tqdm dependency
 
+
 ## Version 0.6.0 (2026-10-10)
 
 - ✨ Added and polished shared utils functions
@@ -26,6 +30,7 @@
 - 👷 Removed unused release-please
 - ⬆️ Updated actions versions
 - ⬆️ Added Python 3.15 support
+
 
 ## Version 0.5.0 (2026-05-22)
 

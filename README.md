@@ -2,6 +2,7 @@
 
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/bikenetlib?color=10d249)](https://anaconda.org/conda-forge/bikenetlib)
 [![PyPI Version](https://img.shields.io/pypi/v/bikenetlib?color=10d249)](https://pypi.org/project/BikeNetLib/)
+[![Docs](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/docs.yml/badge.svg)](https://docs.bikenetkit.org/BikeNetLib/)
 [![Test](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml)
 [![Code coverage](https://codecov.io/gh/BikeNetKit/BikeNetLib/graph/badge.svg)](https://codecov.io/gh/BikeNetKit/BikeNetLib)
 [![Mastodon Follow](https://img.shields.io/mastodon/follow/116693348622375119?domain=https%3A%2F%2Ffosstodon.org)](https://fosstodon.org/@BikeNetKit)
@@ -15,9 +16,9 @@ in the [BikeNetKit family](https://github.com/BikeNetKit), like [GrowBikeNet](ht
 BikeNetLib is imported as `bnl`. There are several building blocks:
 
 - `bnl.io` – Input and output
+- `bnl.osm` – OpenStreetMap constants
 - `bnl.utils` – Utilities
 - `bnl.viz` – Visualization
-- `bnl.osm` – OpenStreetMap constants
 
 BikeNetLib mainly builds on [OSMnx](https://github.com/gboeing/osmnx) and [GeoPandas](https://github.com/geopandas/geopandas).
 
@@ -27,12 +28,18 @@ The recommended way to install BikeNetLib is using [`conda`](https://docs.conda.
 ```
 conda install bikenetlib
 ```
+### Advanced and development installations
+For more installation options, see our [Installation docs](https://docs.bikenetkit.org/BikeNetLib/installation/).
 
 ## Usage
-In development.
+We provide a minimum working example:
 
-## Docs
-In development.
+- Jupyter notebook ([examples/mwe.ipynb](examples/mwe.ipynb))
+
+For a walkthrough with illustrative examples, see our [Usage docs](https://docs.bikenetkit.org/BikeNetLib/usage/).
+
+## Documentation
+Find more information in our docs: [https://docs.bikenetkit.org/BikeNetLib/](https://docs.bikenetkit.org/BikeNetLib/)
 
 ## Supported by
 Development of BikeNetKit/BikeNetLib is supported by the [Innovation Fund Denmark](https://innovationsfonden.dk/en) and the EU HORIZON project [JUST STREETS](https://www.just-streets.eu).
