@@ -5,7 +5,7 @@ import pandas as pd
 import geopandas as gpd
 import networkx as nx
 import osmnx as ox
-from . import constants, osm
+from . import constants, osm, _overpass
 
 
 def assign_pbi_to_edges(g):
