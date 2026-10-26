@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Version 0.8.0 (2026-10-26)
+
+- ✨ Added export_gdfs
+- ✨ Added `_overpass` module/settings
+- 📝 Added basic docs
+
+
 ## Version 0.7.2 (2026-10-18)
 
 - 🐛 Fixed tqdm import
