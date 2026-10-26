@@ -9,7 +9,7 @@ silent = False
 
 import re
 from tqdm import tqdm
-from . import constants, osm
+from . import constants, osm, _overpass
 
 def slugify(s): 
     """Slugify a string.
