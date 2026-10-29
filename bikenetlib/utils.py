@@ -1,6 +1,7 @@
 """Utility functions of `bikenetlib`."""
 
 import numpy as np
+np.set_printoptions(legacy='1.25') # Do not report a float as "np.float64(..)"
 import pandas as pd
 import geopandas as gpd
 import networkx as nx
@@ -85,6 +86,11 @@ def get_principal_bearing(G, bearingbins = 72):
     principal_bearing: float
         The principal bearing, precise to 5 degrees.
     """
+
+    # Check if bearing has already been added
+    edge_attributes = list(list(G.edges(data=True))[0][-1].keys())
+    if "bearing" not in edge_attributes:
+        G = ox.add_edge_bearings(G)
 
     bearings = {}
     # weight bearings by length (meters)
