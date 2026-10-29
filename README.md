@@ -10,8 +10,8 @@
 The Python package `bikenetlib` is BikeNetKit's Python core utility package. It offers general utilities for working with bicycle networks, which also forms the core of many upstream packages
 in the [BikeNetKit family](https://github.com/BikeNetKit), like [GrowBikeNet](https://github.com/BikeNetKit/GrowBikeNet), [FixBikeNet](https://github.com/BikeNetKit/FixBikeNet), or [LinkBikeNet](https://github.com/BikeNetKit/LinkBikeNet).
 
-> [!CAUTION]  
-> BikeNetLib is currently in Alpha: It is under heavy development and *not* stable enough to use yet, likely to contain breaking bugs. Breaking changes may be added anytime.
+> [!NOTE]  
+> BikeNetLib is currently in Beta: It is stable to use, but new features may be added anytime. Please [let us know](https://github.com/BikeNetKit/BikeNetLib/issues) if you find issues or you don’t find a function that you need.
  
 BikeNetLib is imported as `bnl`. There are several building blocks:
 

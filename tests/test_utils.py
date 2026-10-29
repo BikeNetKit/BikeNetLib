@@ -24,3 +24,9 @@ def validation_streets():
 def test_get_principal_bearing(validation_streets):
     assert get_principal_bearing(validation_streets) == 65.0
 
+    # Now drop bearings. They should be re-added by the function.
+    for _, _, d in validation_streets.edges(data=True):
+        if 'bearing' in d:
+            del d["bearing"]
+    assert get_principal_bearing(validation_streets) == 65.0
+
