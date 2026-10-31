@@ -190,7 +190,7 @@ def linkcode_resolve(domain, info):
     if domain != "py" or not info["module"]:
         return None
     try:
-        filename = "BikeNetLib/%s#L%d-L%d" % find_source()  # noqa: UP031
+        filename = "bikenetlib/%s#L%d-L%d" % find_source()  # noqa: UP031
     except Exception:
         filename = info["module"].replace(".", "/") + ".py"
     tag = "main" if "+" in release else ("v" + release)
