@@ -36,7 +36,8 @@ We provide a minimum working example:
 For a walkthrough with illustrative examples, see our [Usage docs](https://docs.bikenetkit.org/BikeNetLib/usage/).
 
 ## Documentation
-Find more information in our docs: [https://docs.bikenetkit.org/BikeNetLib/](https://docs.bikenetkit.org/BikeNetLib/)
+Find more information in our docs: [https://docs.bikenetkit.org/BikeNetLib/](https://docs.bikenetkit.org/BikeNetLib/)  
+See also our [Frequently Asked Questions](https://faq.bikenetkit.org).
 
 ## Supported by
 Development of BikeNetKit/BikeNetLib is supported by the [Innovation Fund Denmark](https://innovationsfonden.dk/en) and the EU HORIZON project [JUST STREETS](https://www.just-streets.eu).

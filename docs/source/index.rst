@@ -18,7 +18,7 @@ Setup and use
 
 To set up BikeNetLib, see the :doc:`installation` page.
 To use BikeNetLib, the :doc:`getting_started` page
-is a good place to start. Various usage examples are walked through on the :doc:`usage` page. For technical documentation, consult the :doc:`reference_user`.
+is a good place to start. Various usage examples are walked through on the :doc:`usage` page. For technical documentation, consult the :doc:`reference_user`. See also our `Frequently Asked Questions <https://faq.bikenetkit.org>`__.
 
 Origin
 ------
