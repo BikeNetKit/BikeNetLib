@@ -39,6 +39,14 @@ For a walkthrough with illustrative examples, see our [Usage docs](https://docs.
 Find more information in our docs: [https://docs.bikenetkit.org/BikeNetLib/](https://docs.bikenetkit.org/BikeNetLib/)  
 See also our [Frequently Asked Questions](https://faq.bikenetkit.org).
 
+## Terms of use
+When using BikeNetLib's default settings, BikeNetKit's own overpass server is used to download street network data - read and observe its [terms of use](https://overpass.bikenetkit.org/). To change the overpass server, for example to OSMnx's default server `https://overpass-api.de/api`, run the following right after importing `bikenetlib`:
+
+```
+import osmnx as ox
+ox.settings.overpass_url = 'https://overpass-api.de/api'
+```
+
 ## Supported by
 Development of BikeNetKit/BikeNetLib is supported by the [Innovation Fund Denmark](https://innovationsfonden.dk/en) and the EU HORIZON project [JUST STREETS](https://www.just-streets.eu).
 
