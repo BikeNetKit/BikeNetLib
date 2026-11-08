@@ -5,6 +5,7 @@
 [![Docs](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/docs.yml/badge.svg)](https://docs.bikenetkit.org/BikeNetLib/)
 [![Test](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BikeNetKit/BikeNetLib/actions/workflows/test.yml)
 [![Code coverage](https://codecov.io/gh/BikeNetKit/BikeNetLib/graph/badge.svg)](https://codecov.io/gh/BikeNetKit/BikeNetLib)
+[![Human created](https://raw.githubusercontent.com/BikeNetKit/.github/refs/heads/main/profile/_static/badge_humancreated.svg)](https://github.com/BikeNetKit/.github/blob/main/CONTRIBUTING.md#ai-usage-policy)
 [![Mastodon Follow](https://img.shields.io/mastodon/follow/116693348622375119?domain=https%3A%2F%2Ffosstodon.org)](https://fosstodon.org/@BikeNetKit)
 
 The Python package `bikenetlib` is BikeNetKit's Python core utility package. It offers general utilities for working with bicycle networks, which also forms the core of many upstream packages
