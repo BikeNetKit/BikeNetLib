@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"name": "osm_network_boundary",
+"features": [
+{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[12.581039, 55.656105], [12.596692, 55.656105], [12.596692, 55.661062], [12.581039, 55.661062], [12.581039, 55.656105]]]}}
+]
+}

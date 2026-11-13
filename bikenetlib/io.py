@@ -105,7 +105,7 @@ def export_gdfs(
 
 def import_osm_network(osm_network, import_path='./', make_undirected=False, project_crs=False):
     """Import an OSM transport network from gpkg file as networkx graph and 
-    GeoDataframes of nodes and edges, with a boundary around the nodes.
+    GeoDataFrames of nodes and edges, with a boundary around the nodes.
 
     Parameters
     ----------
@@ -132,14 +132,14 @@ def import_osm_network(osm_network, import_path='./', make_undirected=False, pro
     g : networkx.classes.multigraph.MultiGraph
         Extracted networkX graph. Unprojected.
     nodes : geopandas.geodataframe.GeoDataFrame
-        Extracted OSM nodes. Unprojected if project_crs is False, otherwise
-        projected via project_crs.
+        Extracted OSM nodes. Unprojected if `project_crs` is False, otherwise
+        projected via `project_crs`.
     edges : geopandas.geodataframe.GeoDataFrame
-        Extracted OSM edges. Unprojected if project_crs is False, otherwise
-        projected via project_crs.    
+        Extracted OSM edges. Unprojected if `project_crs` is False, otherwise
+        projected via `project_crs`.    
     boundary_gdf : geopandas.geodataframe.GeoDataFrame
-        Convex hull of the network nodes. Unprojected if project_crs is False,
-        otherwise projected via project_crs. 
+        Convex hull of the network nodes. Unprojected if `project_crs` is False,
+        otherwise projected via `project_crs`. 
     """
     nodes = gpd.read_file(import_path+osm_network, layer='nodes')
     edges = gpd.read_file(import_path+osm_network, layer='edges')
@@ -152,13 +152,101 @@ def import_osm_network(osm_network, import_path='./', make_undirected=False, pro
     g = ox.convert.graph_from_gdfs(nodes, edges)
 
     if make_undirected:
-        g = g.to_undirected() # make undirected (dropping OSMnx key fields!)
+        g = g.to_undirected() # Make undirected (dropping OSMnx key fields!)
 
     if project_crs is not False:
         edges = edges.to_crs(project_crs)
         nodes = nodes.to_crs(project_crs)
 
     boundary_gdf = gpd.GeoDataFrame(gpd.GeoSeries(nodes.union_all().convex_hull), geometry=0, crs=nodes.crs) 
+    # To do: Add a buffering option (calculations via degrees due to being unprojected)
+    return g, nodes, edges, boundary_gdf
+
+
+def download_osm_network(nominatim_query="", network_type='drive', custom_filter=None, retain_all=True, boundary_geometry=None, make_undirected=False, project_crs=False, simplify=False):
+    """Download and prepare an OSM transport network from OSM via OSMnx as 
+    networkx graph and GeoDataFrames of nodes and edges, with a boundary around 
+    the nodes.
+
+    Downloads a network with a given `network_type` or `custom_filter` using ``ox.graph_from_place()`` or ``ox.graph_from_polygon()``.
+
+    Parameters
+    ----------
+    nominatim_query : str, default ""
+        Name of the region that the analysis should be performed on. Overruled 
+        (for data fetching) if `boundary_geometry` is set.
+    network_type : {'drive', 'all', 'all_public', 'bike', 'drive_service', 'walk'}, default 'drive'
+        What type of network to retrieve if `custom_filter` is None.
+    custom_filter : None or str or list[str], default None
+        A custom ways filter to be used instead of the `network_type` presets.
+    retain_all : bool, default True
+        If True, return the entire graph even if it is not connected, useful 
+        for disconnected bicycle networks. If False, retain only the largest 
+        weakly connected component, useful for road networks.
+    boundary_geometry : None | shapely.Polygon | shapely.MultiPolygon, 
+    default None
+        If not set to None, the study area is selected from this geometry.
+    make_undirected : bool, default False
+        Whether to make the network undirected. This will drop the OSMnx `key`
+        field.
+    project_crs : bool | str, default False
+        If bool and False, do not project. If str, project the nodes and edges with the given `project_crs` EPSG string. The output graph `g` is never 
+        projected.
+    simplify : bool, default False
+        Whether to simplify graph.
+
+    Returns
+    -------
+    g : networkx.classes.multigraph.MultiGraph
+        Extracted networkX graph. Unprojected. Simplified iff ``simplify``.
+    nodes : geopandas.geodataframe.GeoDataFrame
+        Extracted OSM nodes. Unprojected if project_crs is False, otherwise
+        projected via `project_crs`.
+    edges : geopandas.geodataframe.GeoDataFrame
+        Extracted OSM edges. Unprojected if project_crs is False, otherwise
+        projected via `project_crs`.
+    boundary_gdf : geopandas.geodataframe.GeoDataFrame
+        If no `boundary_geometry` was set: Convex hull of the network nodes, else: The `boundary_geometry` as GeoDataframe.
+        Unprojected if `project_crs` is False, otherwise projected via 
+        `project_crs`. 
+    """
+    # Fetch network data from osmnx
+    if boundary_geometry is None:
+        g = ox.graph_from_place(
+            nominatim_query, 
+            network_type=network_type, 
+            custom_filter=custom_filter, 
+            retain_all=retain_all, 
+            simplify=simplify
+        )
+    else:
+        g = ox.graph_from_polygon(
+            boundary_geometry, 
+            network_type=network_type, 
+            custom_filter=custom_filter, 
+            retain_all=retain_all, 
+            simplify=simplify
+        )
+
+    nodes, edges = ox.graph_to_gdfs(
+        g,
+        nodes=True,
+        edges=True,
+        node_geometry=True,
+        fill_edge_geometry=True
+    )
+
+    if make_undirected:
+        g = g.to_undirected() # Make undirected (dropping OSMnx key fields!)
+
+    if project_crs is not False:
+        edges = edges.to_crs(project_crs)
+        nodes = nodes.to_crs(project_crs)
+
+    if boundary_geometry is None:
+        boundary_gdf = gpd.GeoDataFrame(gpd.GeoSeries(nodes.union_all().convex_hull), geometry=0, crs=nodes.crs) 
+    else:
+        boundary_gdf = gpd.GeoDataFrame(index=[0], crs=nodes.crs, geometry=[boundary_geometry])
     # To do: Add a buffering option (calculations via degrees due to being unprojected)
     return g, nodes, edges, boundary_gdf
 

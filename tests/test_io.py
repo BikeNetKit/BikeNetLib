@@ -5,11 +5,14 @@ from networkx.utils.misc import graphs_equal
 from tqdm import tqdm
 import geopandas as gpd
 import osmnx as ox
+import networkx as nx
 import os
 import shutil
+from shapely.geometry import Polygon
 
 from bikenetlib import constants, io
 from bikenetlib.io import (
+    download_osm_network,
     export_gdfs,
     slugify,
     import_osm_network,
@@ -164,7 +167,7 @@ def test_initialize_progress_bar(progress_bar_string):
 @pytest.fixture
 def validation_osm_network():
     """Acquire:
-    >>> g=ox.graph_from_point((55.658328, 12.589548), 250)
+    >>> g=ox.graph_from_bbox((12.581039,55.656105,12.596692,55.661062))
     >>> ox.io.save_graph_geopackage(g, "osm_network.gpkg")
     """
     osm_network_nodes = gpd.read_file(
@@ -180,3 +183,23 @@ def test_import_osm_network(validation_osm_network):
     g, nodes, edges, boundary_gdf = import_osm_network("osm_network.gpkg", import_path="./tests/test_data/")
 
     assert graphs_equal(validation_osm_network, g)
+
+
+# download_network
+@pytest.fixture
+def validation_osm_network_bbox():
+    coords = ((12.581039, 55.656105), (12.596692, 55.656105), (12.596692, 55.661062), (12.581039, 55.661062), (12.581039, 55.656105))
+    return Polygon(coords)
+
+def test_download_osm_network(validation_osm_network, validation_osm_network_bbox):
+    g, nodes, edges, boundary_gdf = download_osm_network(boundary_geometry=validation_osm_network_bbox)
+
+    assert_frame_equal(
+        gpd.GeoDataFrame(index=[0], crs=nodes.crs, geometry=[validation_osm_network_bbox]),
+        boundary_gdf
+    )
+    assert type(g) == nx.classes.multidigraph.MultiDiGraph
+    assert type(nodes) == gpd.geodataframe.GeoDataFrame
+    assert type(edges) == gpd.geodataframe.GeoDataFrame
+    assert boundary_gdf.crs == nodes.crs
+    # We make no graphs_equal assertions, because OSM data can change.
