@@ -1,14 +1,18 @@
 import pytest
+from pandas.testing import assert_frame_equal
+from networkx.utils.misc import graphs_equal
+
 from tqdm import tqdm
-from bikenetlib import constants, io
 import geopandas as gpd
+import osmnx as ox
 import os
 import shutil
-from pandas.testing import assert_frame_equal
 
+from bikenetlib import constants, io
 from bikenetlib.io import (
     export_gdfs,
     slugify,
+    import_osm_network,
     initialize_progress_bar,
 )
 
@@ -154,3 +158,25 @@ def test_initialize_progress_bar(progress_bar_string):
         disable=io.silent,
     )
     assert tqdm_left.desc == tqdm_right.desc
+
+
+# import_osm_network
+@pytest.fixture
+def validation_osm_network():
+    """Acquire:
+    >>> g=ox.graph_from_point((55.658328, 12.589548), 250)
+    >>> ox.io.save_graph_geopackage(g, "osm_network.gpkg")
+    """
+    osm_network_nodes = gpd.read_file(
+        "./tests/test_data/osm_network.gpkg", layer="nodes"
+    ).set_index("osmid")
+    osm_network_edges = gpd.read_file(
+        "./tests/test_data/osm_network.gpkg", layer="edges"
+    ).set_index(["u", "v", "key"])
+    osm_network = ox.convert.graph_from_gdfs(osm_network_nodes, osm_network_edges)
+    return osm_network
+
+def test_import_osm_network(validation_osm_network):
+    g, nodes, edges, boundary_gdf = import_osm_network("osm_network.gpkg", import_path="./tests/test_data/")
+
+    assert graphs_equal(validation_osm_network, g)

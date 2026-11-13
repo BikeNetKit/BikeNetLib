@@ -11,6 +11,8 @@ import os
 import re
 from tqdm import tqdm
 from . import constants, osm, _overpass
+import geopandas as gpd
+import osmnx as ox
 
 
 def export_gdfs(
@@ -99,6 +101,66 @@ def export_gdfs(
 
     if bar: progress_bar.close()
     return True
+
+
+def import_osm_network(osm_network, import_path='./', make_undirected=False, project_crs=False):
+    """Import an OSM transport network from gpkg file as networkx graph and 
+    GeoDataframes of nodes and edges, with a boundary around the nodes.
+
+    Parameters
+    ----------
+    osm_network : str
+        The OSM transport network is loaded from this file. Must be a gpkg file 
+        in unprojected CRS EPSG:4326 with layers nodes and edges, with the 
+        structure that a OSMnx transport network ``g`` has. This must be a 
+        MultiGraph. The nodes layer must have an `osmid` field. The edges layer
+        must have the fields `u`, `v`, and `key`. For example:
+
+        >>> g = ox.graph_from_place("Barcelona", network_type='drive')
+        >>> ox.io.save_graph_geopackage(g, "Barcelona_streets.gpkg")
+    import_path : str, default './'
+        Path to import files.
+    make_undirected : bool, default False
+        Whether to make the network undirected. This will drop the OSMnx `key`
+        field.
+    project_crs : bool | str, default False
+        If bool and False, do not project. If str, project the nodes and edges with the given `project_crs` EPSG string. The output graph `g` is never 
+        projected.
+
+    Returns
+    -------
+    g : networkx.classes.multigraph.MultiGraph
+        Extracted networkX graph. Unprojected.
+    nodes : geopandas.geodataframe.GeoDataFrame
+        Extracted OSM nodes. Unprojected if project_crs is False, otherwise
+        projected via project_crs.
+    edges : geopandas.geodataframe.GeoDataFrame
+        Extracted OSM edges. Unprojected if project_crs is False, otherwise
+        projected via project_crs.    
+    boundary_gdf : geopandas.geodataframe.GeoDataFrame
+        Convex hull of the network nodes. Unprojected if project_crs is False,
+        otherwise projected via project_crs. 
+    """
+    nodes = gpd.read_file(import_path+osm_network, layer='nodes')
+    edges = gpd.read_file(import_path+osm_network, layer='edges')
+
+    # Set indices as required by osmnx.convert.graph_from_gdfs
+    # See: https://osmnx.readthedocs.io/en/stable/user-reference.html#osmnx.utils_graph.graph_from_gdfs
+    nodes = nodes.set_index(['osmid'])
+    edges = edges.set_index(['u', 'v', 'key'])
+
+    g = ox.convert.graph_from_gdfs(nodes, edges)
+
+    if make_undirected:
+        g = g.to_undirected() # make undirected (dropping OSMnx key fields!)
+
+    if project_crs is not False:
+        edges = edges.to_crs(project_crs)
+        nodes = nodes.to_crs(project_crs)
+
+    boundary_gdf = gpd.GeoDataFrame(gpd.GeoSeries(nodes.union_all().convex_hull), geometry=0, crs=nodes.crs) 
+    # To do: Add a buffering option (calculations via degrees due to being unprojected)
+    return g, nodes, edges, boundary_gdf
 
 
 def slugify(s): 

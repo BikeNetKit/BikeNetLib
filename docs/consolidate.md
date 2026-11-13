@@ -17,7 +17,7 @@ Input/Output like downloads, imports, exports, but also format conversions and u
 - X `slugify()`
 - X `initialize_progress_bar()`: require tqdm
 - X `export_gdfs()`
-- `import_network()`, `prepare_nodes_edges()`: align gbn-fbn
+- X `import_network()`, `prepare_nodes_edges()`: align gbn-fbn
 - `download_network()`: align gbn-fbn
 - `_resolve_crs_calculations()`
 - `_print_header()`, `_print_footer()`: align gbn-rest, later
