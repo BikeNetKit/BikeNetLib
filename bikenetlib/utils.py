@@ -6,7 +6,90 @@ import pandas as pd
 import geopandas as gpd
 import networkx as nx
 import osmnx as ox
+import shapely
+from shapely.strtree import STRtree
 from . import constants, osm, _overpass
+
+
+def add_point_data_to_net(points, edges, matching_distance=500):
+    """Match point data to network edges.
+
+    Parameters
+    ----------
+    points : geopandas.geodataframe.GeoDataFrame
+        A geodataframe of unprojected point geometries, optional having a 
+        column ``num`` containing an integer. This could be (number of) point 
+        events like crashes or citizen feedback to improve bike infrastructure. 
+        If a ``num`` column is not provided, assumes 1 per point.
+    edges : geopandas.geodataframe.GeoDataFrame
+        A geodataframe of projected spatial network edges. This is the routed 
+        network of seed points. It has to be in a distance-preserving projected
+        CRS, so '3857' (WGS 84 / Pseudo-Mercator) would be wrong!
+    matching_distance : int
+        Matching distance in meters.
+
+    Returns
+    -------
+    edges_with_data : geopandas.geodataframe.GeoDataFrame
+        The same spatial network edges, but with a new int column 
+        ``num_points`` populated with the summed up ``num`` values of all 
+        points, matched to the closest links if within `matching_distance`. 
+    """
+    edges_with_data = edges.copy()
+    points_projected = points.to_crs(edges_with_data.crs)
+
+    # If column "num" is not provided assume 1 event per point
+    if 'num' in points_projected.columns:
+        nums = points_projected['num']
+    else:
+        nums = [1] * len(points_projected)
+
+    # Initialize the 'num_points' column to 0 for all edges
+    edges_with_data['num_points'] = 0 * len(edges_with_data)
+
+    # Get geometries of edges and points
+    edges_geoms = edges_with_data['geometry']
+    points_geoms = points_projected['geometry']
+
+    # Build an r-tree spatial index by position for subsequent iloc
+    rtree = STRtree(edges_geoms)    
+                            
+    for point in points_geoms.items(): # point = (id, POINT(x, y))
+        # Query the tree for all the edges within the matching distance of the point
+        edges_within_matching_distance = rtree.query(
+            point[1],
+            predicate='dwithin',
+            distance=matching_distance
+        )
+
+        # If no edges are within the matching distance, continue to the next point
+        if len(edges_within_matching_distance) == 0:
+            continue
+
+        # Calculate the distances from the point to each of the edges, and round to 10 decimal places to avoid floating point precision issues
+        distances = []
+        for edge in edges_within_matching_distance:
+            distance = np.around(shapely.distance(point[1], edges_geoms.iloc[edge]), decimals=10)
+            distances.append(distance)
+
+        # Get the edges that are closest to the point
+        closest_edges = edges_within_matching_distance[np.where(distances == np.min(distances))]
+
+        # Get the lowest index of the closest edges
+        closest_edges_min_index = np.sort(closest_edges)[0]
+
+        # Get the number of events at the point
+        num = nums[point[0]]
+
+        # Add the number of events to the nearest edge
+        edges_with_data.loc[closest_edges_min_index, 'num_points'] += num
+
+    # Move the 'geometry' column to the end of the GeoDataFrame
+    # Necessary for testing the function
+    cols = [c for c in edges_with_data.columns if c != 'geometry'] + ['geometry']
+    edges_with_data = edges_with_data[cols]
+
+    return edges_with_data
 
 
 def assign_pbi_to_edges(g):
