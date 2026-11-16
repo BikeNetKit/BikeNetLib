@@ -8,6 +8,7 @@ version = "0.8.1"
 authors = [
     { name = "Michael Szell", email = "michael@szell.net" },
     { name = "Manuel Knepper" },
+    { name = "Mariana Pessoa" },
 ]
 maintainers = [
     { name = "Michael Szell", email = "michael@szell.net" },
