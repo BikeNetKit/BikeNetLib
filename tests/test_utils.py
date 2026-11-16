@@ -1,5 +1,6 @@
 import pytest
 from pandas.testing import assert_frame_equal
+import pickle
 
 import networkx as nx
 import osmnx as ox
@@ -11,6 +12,7 @@ from bikenetlib.utils import (
     add_point_data_to_net,
     add_trip_data_to_net,
     get_principal_bearing,
+    weight_distances,
 )
 
 
@@ -407,3 +409,24 @@ def test_add_trip_data_to_net_case_success_turin(turin_trips_data, turin_triangu
     assert result.nodes == expected.nodes, "Nodes are not the same"
     assert result.adj == expected.adj, "Edges are not the same"
     assert result.graph == expected.graph, "Graphs are not the same"
+
+
+# weight_distances
+@pytest.fixture
+def turin_B():
+    B = pickle.load(open('./tests/test_data/turin_B.pickle', 'rb'))
+    return B
+
+@pytest.fixture
+def turin_d_points():
+    d = pickle.load(open('./tests/test_data/turin_d_points.pickle', 'rb'))
+    return d
+
+@pytest.fixture
+def turin_d_trips():
+    d = pickle.load(open('./tests/test_data/turin_d_trips.pickle', 'rb'))
+    return d
+
+def test_weight_distances(turin_B, turin_d_points, turin_d_trips):
+    assert turin_d_points == weight_distances(turin_B, "num_points")
+    assert turin_d_trips == weight_distances(turin_B, "num_trips")
