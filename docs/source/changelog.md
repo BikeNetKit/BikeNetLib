@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.9.0 (2026-11-16)
+
+- ✨ Added add_point_data_to_net
+- ✨ Added add_trip_data_to_net
+- ✨ Added weight_distances
+
 
 ## Version 0.8.1 (2026-10-27)
 
