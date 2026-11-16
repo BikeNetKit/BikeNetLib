@@ -47,7 +47,7 @@ Should probably be tool-specific, if relevant overwrite bnl settings.
 ## Multi-use
 - X `assign_pbi_to_edges()`
 - X `get_correct_edgetuples()` -> `nodelist_to_edgetuples()`
-- `_get_weighted_distances()`: align gbn-fbn
+- X `_get_weighted_distances()`: align gbn-fbn
 - X `add_point_data_to_net()`: align parameters gbn-fbn
 - `create_gdf_with_geoms()`: align gbn-fbn
 - `weigh_edges()`: align parameters gbn-fbn, make pbi, length, and weight attributes parameters, make general, include constants.ROUTING_PENALTY
