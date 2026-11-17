@@ -93,7 +93,7 @@ def add_point_data_to_net(points, edges, matching_distance=500):
     return edges_with_data
 
 
-def add_trip_data_to_net(trips, A, matching_distance=500):
+def add_trip_data_to_net(trips, G, matching_distance=500):
     """Match trip data to network edges.
 
     First, match origin and destination points given in trips to the nodes.
@@ -110,9 +110,9 @@ def add_trip_data_to_net(trips, A, matching_distance=500):
         unprojected CRS EPSG:4326. Optional with a column ``num`` containing an 
         integer. This could be (number of) trip events. If ``num`` column is 
         not provided, assumes 1 per trip.
-    A : networkx.graph
+    G : networkx.graph
         Spatial network, for example a street network. Needs to have a graph
-        `crs` attribute. Set as such: `A.graph['crs'] = '1234'`. It has to be 
+        `crs` attribute. Set as such: `G.graph['crs'] = '1234'`. It has to be 
         a distance-preserving projected CRS, so '3857' (WGS 84 / 
         Pseudo-Mercator) would be wrong!
     matching_distance : int, default 500
@@ -126,7 +126,7 @@ def add_trip_data_to_net(trips, A, matching_distance=500):
         of all trips where both origins and destinations could be matched to 
         the closest network nodes within `matching_distance`. 
     """
-    graph_with_data = A.copy()
+    graph_with_data = G.copy()
     transformer = Transformer.from_crs("EPSG:4326", graph_with_data.graph['crs'], always_xy=True)
 
     # If column "num" is not provided assume 1 trip per origin-destination (OD) pair
@@ -173,32 +173,33 @@ def add_trip_data_to_net(trips, A, matching_distance=500):
     return graph_with_data
 
 
-def assign_pbi_to_edges(g):
+def assign_pbi_to_edges(G):
     """Assign a boolean pbi attribute to all edges in a graph depending if they 
     are considered protected bike infrastructure (pbi).
 
     Parameters
     ----------
-    g : networkx.MultiDiGraph
+    G : networkx.MultiDiGraph
         Simplified graph representing the street network.
 
     Returns
     -------
-    g : networkx.MultiDiGraph
-        Simplified graph representing the street network, with added binary edge attribute "pbi".
+    G : networkx.MultiDiGraph
+        Simplified graph representing the street network, with added binary 
+        edge attribute "pbi".
     """
-    for edge in g.edges(keys=True):
+    for edge in G.edges(keys=True):
         assigned_pbi = 0
         for tag in osm.PBI_DICT:
-            if g.edges[edge].get(tag) in osm.PBI_DICT[tag]:
+            if G.edges[edge].get(tag) in osm.PBI_DICT[tag]:
                 assigned_pbi = 1
         if not assigned_pbi: # Check if the edge fulfills a subcriterion
             for tag in osm.PBI_DICT_SUB:
                 subtag = list(osm.PBI_DICT_SUB[tag][1].keys())[0]
-                if g.edges[edge].get(tag) in osm.PBI_DICT_SUB[tag][0] and g.edges[edge].get(subtag) in osm.PBI_DICT_SUB[tag][1][subtag] and g.edges[edge].get("access") != 'private':
+                if G.edges[edge].get(tag) in osm.PBI_DICT_SUB[tag][0] and G.edges[edge].get(subtag) in osm.PBI_DICT_SUB[tag][1][subtag] and G.edges[edge].get("access") != 'private':
                     assigned_pbi = 1
-        g.edges[edge]["pbi"] = assigned_pbi
-    return g
+        G.edges[edge]["pbi"] = assigned_pbi
+    return G
 
     
 def nodelist_to_edgetuples(edge_gdf, nodelist):
@@ -344,8 +345,9 @@ def node_to_edge_attributes(values_nodes, edges):
     return values_edges
 
 
-def route_nodepairs(nodepairs, edges, g_undir, weight="weight"):
-    """Route pairs of nodes on the graph `g_undir` to a merged geometry of corresponding OSM nodes and edges.
+def route_nodepairs(nodepairs, edges, G, weight="weight"):
+    """Route pairs of nodes on the undirected graph `G` to a merged geometry of 
+    corresponding OSM nodes and edges.
 
     Parameters
     ----------
@@ -353,8 +355,8 @@ def route_nodepairs(nodepairs, edges, g_undir, weight="weight"):
         Dataframe with node pair integer IDs, columns `source` and `target`.
     edges : geopandas.geodataframe.GeoDataFrame
         The street network, in a projected CRS.
-    g_undir : networkx.graph undirected
-        Graph to use for routing. 
+    G : networkx.graph
+        Undirected graph to use for routing. 
     weight : string, default "weight"
         The name of the weight variable.
 
@@ -367,7 +369,7 @@ def route_nodepairs(nodepairs, edges, g_undir, weight="weight"):
     for _, row in nodepairs.iterrows():
         paths.append(
             nx.shortest_path(
-                G=g_undir,
+                G=G,
                 source=int(row.source),
                 target=int(row.target),
                 weight=weight,
@@ -378,15 +380,14 @@ def route_nodepairs(nodepairs, edges, g_undir, weight="weight"):
     return nodepairs
 
 
-def weight_distances(B, num_types, import_data_impact=9, inverted=False):
+def weight_distances(G, num_types, import_data_impact=9, inverted=False):
     """Get weighted distances by edge attribute `num_types`.
 
     Parameters
     ----------
-    B : networkx.classes.multigraph.MultiGraph
-        The routed, grown bicycle network graph, where edges have the attribute 
-        `num_types`. The numerical attribute 'distance' must exist for all 
-        edges.
+    G : networkx.classes.multigraph.MultiGraph
+        A spatial network where edges have the attribute `num_types`. The 
+        numerical attribute 'distance' must exist for all edges.
     num_types : str
         Name of the attribute to weight the distances.
     import_data_impact : float, default 9
@@ -409,8 +410,8 @@ def weight_distances(B, num_types, import_data_impact=9, inverted=False):
     ----------
     .. [1] P. Folco, L. Gauvin, M. Tizzoni, M. Szell, `Data-driven micromobility network planning for demand and safety`, Environment and planning B: Urban analytics and city science 50(8), 2087-2102 (2023)
     """
-    num_types_dict = nx.get_edge_attributes(B, num_types)
-    dist_dict = nx.get_edge_attributes(B, 'distance')
+    num_types_dict = nx.get_edge_attributes(G, num_types)
+    dist_dict = nx.get_edge_attributes(G, 'distance')
 
     num_types_per_km_dict = {}
     for k,d in dist_dict.items():
