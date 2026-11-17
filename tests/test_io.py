@@ -59,7 +59,7 @@ def test_export_gdfs(oelde_gdfs, validation_oelde_gpkg_layer):
         gpd.read_file(path_test_outputs+"oelde_export.gpkg", layer="Seed points"),
         check_dtype=False,
     )
-    # Test overwrite
+    # Test no overwrite
     o = export_gdfs(
         oelde_gdfs, 
         filename=filename, 
@@ -69,6 +69,17 @@ def test_export_gdfs(oelde_gdfs, validation_oelde_gpkg_layer):
         overwrite=False, # !
     )
     assert o == False
+
+    # Test overwrite
+    o = export_gdfs(
+        oelde_gdfs, 
+        filename=filename, 
+        path=path_test_outputs, # !
+        format=format,
+        bar=False,
+        overwrite=True, # !
+    )
+    assert o == True
 
     format = 'geojson'
     if os.path.exists(path_test_outputs) and os.path.isdir(path_test_outputs):
@@ -180,9 +191,27 @@ def validation_osm_network():
     return osm_network
 
 def test_import_osm_network(validation_osm_network):
-    g, nodes, edges, boundary_gdf = import_osm_network("osm_network.gpkg", import_path="./tests/test_data/")
+    project_crs = "4326"
+    
+    G, nodes, edges, boundary_gdf = import_osm_network(
+        "osm_network.gpkg", 
+        import_path="./tests/test_data/", 
+        make_undirected=False, 
+        project_crs=project_crs
+    )
+    assert graphs_equal(validation_osm_network, G)
+    assert nodes.crs == project_crs
+    assert edges.crs == project_crs
+    assert boundary_gdf.crs == project_crs
+    assert type(G) == nx.classes.multidigraph.MultiDiGraph
 
-    assert graphs_equal(validation_osm_network, g)
+    G, nodes, edges, boundary_gdf = import_osm_network(
+        "osm_network.gpkg", 
+        import_path="./tests/test_data/", 
+        make_undirected=True, # ! 
+        project_crs=project_crs
+    )
+    assert type(G) == nx.classes.multigraph.MultiGraph
 
 
 # download_network
