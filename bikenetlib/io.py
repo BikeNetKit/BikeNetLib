@@ -112,24 +112,24 @@ def import_osm_network(osm_network, import_path='./', make_undirected=False, pro
     osm_network : str
         The OSM transport network is loaded from this file. Must be a gpkg file 
         in unprojected CRS EPSG:4326 with layers nodes and edges, with the 
-        structure that a OSMnx transport network ``g`` has. This must be a 
+        structure that an OSMnx transport network `G` has. This must be a 
         MultiGraph. The nodes layer must have an `osmid` field. The edges layer
         must have the fields `u`, `v`, and `key`. For example:
 
-        >>> g = ox.graph_from_place("Barcelona", network_type='drive')
-        >>> ox.io.save_graph_geopackage(g, "Barcelona_streets.gpkg")
+        >>> G = ox.graph_from_place("Barcelona", network_type='drive')
+        >>> ox.io.save_graph_geopackage(G, "Barcelona_streets.gpkg")
     import_path : str, default './'
         Path to import files.
     make_undirected : bool, default False
         Whether to make the network undirected. This will drop the OSMnx `key`
-        field.
+        field. If True, makes `G` a MultiGraph, otherwise a MultiDiGraph.
     project_crs : bool | str, default False
-        If bool and False, do not project. If str, project the nodes and edges with the given `project_crs` EPSG string. The output graph `g` is never 
+        If bool and False, do not project. If str, project the nodes and edges with the given `project_crs` EPSG string. The output graph `G` is never 
         projected.
 
     Returns
     -------
-    g : networkx.classes.multigraph.MultiGraph
+    G : networkx MultiGraph or MultiDiGraph
         Extracted networkX graph. Unprojected.
     nodes : geopandas.geodataframe.GeoDataFrame
         Extracted OSM nodes. Unprojected if `project_crs` is False, otherwise
@@ -149,10 +149,10 @@ def import_osm_network(osm_network, import_path='./', make_undirected=False, pro
     nodes = nodes.set_index(['osmid'])
     edges = edges.set_index(['u', 'v', 'key'])
 
-    g = ox.convert.graph_from_gdfs(nodes, edges)
+    G = ox.convert.graph_from_gdfs(nodes, edges)
 
     if make_undirected:
-        g = g.to_undirected() # Make undirected (dropping OSMnx key fields!)
+        G = G.to_undirected() # Make undirected (dropping OSMnx key fields!)
 
     if project_crs is not False:
         edges = edges.to_crs(project_crs)
@@ -160,7 +160,7 @@ def import_osm_network(osm_network, import_path='./', make_undirected=False, pro
 
     boundary_gdf = gpd.GeoDataFrame(gpd.GeoSeries(nodes.union_all().convex_hull), geometry=0, crs=nodes.crs) 
     # To do: Add a buffering option (calculations via degrees due to being unprojected)
-    return g, nodes, edges, boundary_gdf
+    return G, nodes, edges, boundary_gdf
 
 
 def download_osm_network(nominatim_query="", network_type='drive', custom_filter=None, retain_all=True, boundary_geometry=None, make_undirected=False, project_crs=False, simplify=False):
@@ -190,15 +190,15 @@ def download_osm_network(nominatim_query="", network_type='drive', custom_filter
         Whether to make the network undirected. This will drop the OSMnx `key`
         field.
     project_crs : bool | str, default False
-        If bool and False, do not project. If str, project the nodes and edges with the given `project_crs` EPSG string. The output graph `g` is never 
+        If bool and False, do not project. If str, project the nodes and edges with the given `project_crs` EPSG string. The output graph `G` is never 
         projected.
     simplify : bool, default False
         Whether to simplify graph.
 
     Returns
     -------
-    g : networkx.classes.multigraph.MultiGraph
-        Extracted networkX graph. Unprojected. Simplified iff ``simplify``.
+    G : networkx.classes.multigraph.MultiGraph
+        Extracted networkX graph. Unprojected. Simplified iff `simplify`.
     nodes : geopandas.geodataframe.GeoDataFrame
         Extracted OSM nodes. Unprojected if project_crs is False, otherwise
         projected via `project_crs`.
@@ -212,7 +212,7 @@ def download_osm_network(nominatim_query="", network_type='drive', custom_filter
     """
     # Fetch network data from osmnx
     if boundary_geometry is None:
-        g = ox.graph_from_place(
+        G = ox.graph_from_place(
             nominatim_query, 
             network_type=network_type, 
             custom_filter=custom_filter, 
@@ -220,7 +220,7 @@ def download_osm_network(nominatim_query="", network_type='drive', custom_filter
             simplify=simplify
         )
     else:
-        g = ox.graph_from_polygon(
+        G = ox.graph_from_polygon(
             boundary_geometry, 
             network_type=network_type, 
             custom_filter=custom_filter, 
@@ -229,7 +229,7 @@ def download_osm_network(nominatim_query="", network_type='drive', custom_filter
         )
 
     nodes, edges = ox.graph_to_gdfs(
-        g,
+        G,
         nodes=True,
         edges=True,
         node_geometry=True,
@@ -237,7 +237,7 @@ def download_osm_network(nominatim_query="", network_type='drive', custom_filter
     )
 
     if make_undirected:
-        g = g.to_undirected() # Make undirected (dropping OSMnx key fields!)
+        G = G.to_undirected() # Make undirected (dropping OSMnx key fields!)
 
     if project_crs is not False:
         edges = edges.to_crs(project_crs)
@@ -248,7 +248,7 @@ def download_osm_network(nominatim_query="", network_type='drive', custom_filter
     else:
         boundary_gdf = gpd.GeoDataFrame(index=[0], crs=nodes.crs, geometry=[boundary_geometry])
     # To do: Add a buffering option (calculations via degrees due to being unprojected)
-    return g, nodes, edges, boundary_gdf
+    return G, nodes, edges, boundary_gdf
 
 
 def slugify(s): 
