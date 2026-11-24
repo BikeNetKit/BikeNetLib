@@ -32,7 +32,7 @@ PBI_DICT_SUB : dict
 import osmnx as ox
 for custom_tag in ["highway", "cycleway", "bicycle", "cycleway:right", "cycleway:left", "cycleway:both", "cyclestreet", "access", "area", "service", "motor_vehicle", "motorcar"]: # This list should contain all tags used in any custom filters
     if custom_tag not in ox.settings.useful_tags_way:
-        ox.settings.useful_tags_way.extend(custom_tag)
+        ox.settings.useful_tags_way.append(custom_tag)
 
 
 CARPBI_NETWORK_CUSTOM_FILTER = [ # adapted from https://github.com/gboeing/osmnx/blob/2fc39cb2792ff869881b99f724a2d97f0e958667/osmnx/_overpass.py#L77
