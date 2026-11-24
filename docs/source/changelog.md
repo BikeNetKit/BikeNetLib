@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.9.1 (2026-11-24)
+
+- 🐛 Fixed `useful_tags_way` bug
+
+
 ## Version 0.9.0 (2026-11-16)
 
 - ✨ Added add_point_data_to_net
